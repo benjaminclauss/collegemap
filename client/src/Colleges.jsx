@@ -53,7 +53,7 @@ class Colleges extends React.Component {
       <>
         <div>
           <Button variant="outlined" color="primary" onClick={this.handleClickButton}>
-            Add College
+            Add a College
           </Button>
           <CollegeDialog
             open={isDialogOpen}
