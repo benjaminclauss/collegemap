@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Button } from '@material-ui/core';
 import CollegeList from './components/CollegeList';
 import CollegeDialog from './components/CollegeDialog';
+import { API } from './constants';
 
 class Colleges extends React.Component {
   constructor(props) {
@@ -28,17 +29,17 @@ class Colleges extends React.Component {
   }
 
   getColleges() {
-    axios.get('http://localhost:4000/api/colleges')
+    axios.get(`${API}/colleges`)
       .then((response) => this.setState({ colleges: response.data }));
   }
 
   postCollege(name) {
-    axios.post('http://localhost:4000/api/colleges', { name })
+    axios.post(`${API}/colleges`, { name })
       .then(() => this.getColleges());
   }
 
   deleteCollege(college) {
-    axios.delete(`http://localhost:4000/api/colleges/${college._id}`)
+    axios.delete(`${API}/colleges/${college._id}`)
       .then(() => this.getColleges());
   }
 
