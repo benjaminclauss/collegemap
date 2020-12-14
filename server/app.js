@@ -13,15 +13,15 @@ const corsOptions = {
 }
 app.use(cors(corsOptions));
 
-const collegesRouter = require('./routes/colleges');
+const mongoose = require('mongoose');
+const url = process.env.MONGO_URL || 'mongodb://localhost:27017/collegemap';
+mongoose.connect(url); // connect to our database
 
-const port = 4000
+const collegesRouter = require('./routes/colleges');
 
 app.use('/api', collegesRouter);
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/collegemap'); // connect to our database
-
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
