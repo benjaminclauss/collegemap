@@ -18,8 +18,10 @@ const url = process.env.MONGO_URL || 'mongodb://localhost:27017/collegemap';
 mongoose.connect(url); // connect to our database
 
 const collegesRouter = require('./routes/colleges');
+const mapsRouter = require('./routes/maps');
 
 app.use('/api', collegesRouter);
+app.use('/api', mapsRouter);
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
