@@ -14,7 +14,6 @@ class Colleges extends React.Component {
       isDialogOpen: false,
     };
     this.handleClickButton = this.handleClickButton.bind(this);
-    console.log(API);
   }
 
   componentDidMount() {
