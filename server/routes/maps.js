@@ -9,7 +9,7 @@ router.route('/maps')
                 res.send(err);
 
             res.json(bears);
-        });
+        }).populate('attendees.college');
     })
 
     .post(function (req, res) {
@@ -31,7 +31,7 @@ router.route('/maps/:map_id')
             if (err)
                 res.send(err);
             res.json(map);
-        });
+        }).populate('attendees.college');
     })
 
     .put(function (req, res) {
@@ -41,7 +41,8 @@ router.route('/maps/:map_id')
             if (err)
                 res.send(err);
 
-            map.name = req.body.name;  // update the maps info
+            map.name = req.body.name; // update the maps info
+            map.attendees = req.body.attendees;
 
             // save the map
             map.save(function (err) {

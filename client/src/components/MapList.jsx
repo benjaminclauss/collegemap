@@ -7,17 +7,20 @@ import {
   ListItemSecondaryAction,
   ListItemText,
 } from '@material-ui/core';
-import { Delete } from '@material-ui/icons';
+import { Add, Delete } from '@material-ui/icons';
 
-function MapList({ maps, onDelete }) {
+function MapList({ maps, onAdd, onDelete }) {
   return (
     <Grid item xs={12} md={12}>
       <div>
         <List dense>
           {maps.map((map) => (
             <ListItem key={map._id}>
-              <ListItemText primary={map.name} secondary={`${map.colleges.length}`} />
+              <ListItemText primary={map.name} secondary={`${map.attendees.length}`} />
               <ListItemSecondaryAction>
+                <IconButton onClick={() => onAdd(map)} edge="end" aria-label="delete">
+                  <Add />
+                </IconButton>
                 <IconButton onClick={() => onDelete(map)} edge="end" aria-label="delete">
                   <Delete />
                 </IconButton>

@@ -18,6 +18,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'jsx-props-no-spreading': 'off',
     'no-underscore-dangle': 'off',
     'react/prop-types': 'off',
   },
