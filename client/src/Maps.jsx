@@ -96,7 +96,6 @@ class Maps extends React.Component {
             this.setState({ isDialogOpen: false });
           }}
         />
-        {`${addAttendeeMap}`}
         {addAttendeeMap
         && (
           <AddAttendeeDialog
