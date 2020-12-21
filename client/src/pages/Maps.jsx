@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Button } from "@material-ui/core";
-import MapList from "./MapList";
-import MapDialog from "./MapDialog";
-import AddAttendeeDialog from "./AddPersonDialog";
+import MapList from "../components/MapList";
+import MapDialog from "../components/MapDialog";
+import AddAttendeeDialog from "../components/AddPersonDialog";
 import CollegeService from "../services/CollegeService";
 import MapService from "../services/MapService";
 

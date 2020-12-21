@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Button } from "@material-ui/core";
-import CollegeList from "./CollegeList";
-import CollegeDialog from "./CollegeDialog";
+import CollegeList from "../components/CollegeList";
+import CollegeDialog from "../components/CollegeDialog";
 import CollegeService from "../services/CollegeService";
 
 class Colleges extends React.Component {
@@ -45,6 +45,15 @@ class Colleges extends React.Component {
     const { colleges, isDialogOpen } = this.state;
     return (
       <>
+        {/*<Switch>*/}
+        {/*  <Route path={`${match.path}/:topicId`}>*/}
+        {/*    <Topic />*/}
+        {/*  </Route>*/}
+        {/*  <Route path={match.path}>*/}
+        {/*    <h3>Please select a topic.</h3>*/}
+        {/*  </Route>*/}
+        {/*</Switch>*/}
+
         <div>
           <Button
             variant="outlined"
