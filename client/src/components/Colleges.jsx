@@ -1,10 +1,9 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
 
-import { Button } from '@material-ui/core';
-import CollegeList from './components/CollegeList';
-import CollegeDialog from './components/CollegeDialog';
-import { API } from './constants';
+import { Button } from "@material-ui/core";
+import CollegeList from "./CollegeList";
+import CollegeDialog from "./CollegeDialog";
+import CollegeService from "../services/CollegeService";
 
 class Colleges extends React.Component {
   constructor(props) {
@@ -29,29 +28,29 @@ class Colleges extends React.Component {
   }
 
   getColleges() {
-    axios.get(`${API}/colleges`)
-      .then((response) => this.setState({ colleges: response.data }));
+    CollegeService.getAll().then((response) =>
+      this.setState({ colleges: response.data })
+    );
   }
 
   postCollege(name) {
-    axios.post(`${API}/colleges`, { name })
-      .then(() => this.getColleges());
+    CollegeService.create({ name }).then(this.getColleges);
   }
 
   deleteCollege(college) {
-    axios.delete(`${API}/colleges/${college._id}`)
-      .then(() => this.getColleges());
+    CollegeService.delete(college._id).then(() => this.getColleges());
   }
 
   render() {
-    const {
-      colleges,
-      isDialogOpen,
-    } = this.state;
+    const { colleges, isDialogOpen } = this.state;
     return (
       <>
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickButton}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.handleClickButton}
+          >
             Add a College
           </Button>
           <CollegeDialog

@@ -1,14 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
-  BrowserRouter as Router, Redirect, Route, Switch,
-} from 'react-router-dom';
-import {
-  AppBar, Container, Toolbar, Typography,
-} from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import Colleges from './Colleges';
-import Maps from './Maps';
-import Map from './Map';
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import Colleges from "./components/Colleges";
+import Maps from "./components/Maps";
+import Map from "./components/Map";
 
 const useStyles = makeStyles(() => ({
   appBar: {
@@ -23,9 +24,7 @@ export default function App() {
     <Router>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6">
-            College Map
-          </Typography>
+          <Typography variant="h6">College Map</Typography>
         </Toolbar>
       </AppBar>
       <Container>

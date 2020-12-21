@@ -1,11 +1,11 @@
-import React from 'react';
-import axios from 'axios';
+import React from "react";
 
-import { Button } from '@material-ui/core';
-import MapList from './components/MapList';
-import MapDialog from './components/MapDialog';
-import { API } from './constants';
-import AddAttendeeDialog from './components/AddPersonDialog';
+import { Button } from "@material-ui/core";
+import MapList from "./MapList";
+import MapDialog from "./MapDialog";
+import AddAttendeeDialog from "./AddPersonDialog";
+import CollegeService from "../services/CollegeService";
+import MapService from "../services/MapService";
 
 class Maps extends React.Component {
   constructor(props) {
@@ -33,52 +33,49 @@ class Maps extends React.Component {
   }
 
   getMaps() {
-    axios.get(`${API}/maps`)
-      .then((response) => this.setState({ maps: response.data }));
+    MapService.getAll().then((response) =>
+      this.setState({ maps: response.data })
+    );
   }
 
   getColleges() {
-    axios.get(`${API}/colleges`)
-      .then((response) => this.setState({ colleges: response.data }));
+    CollegeService.getAll().then((response) =>
+      this.setState({ colleges: response.data })
+    );
   }
 
   postMap(name) {
-    axios.post(`${API}/maps`, { name })
-      .then(() => this.getMaps());
+    MapService.create({ name }).then(() => this.getMaps());
   }
 
   deleteMap(map) {
-    axios.delete(`${API}/maps/${map._id}`)
-      .then(() => this.getMaps());
+    MapService.delete(map._id).then(() => this.getMaps());
   }
 
-  addAttendee({
-    name,
-    college,
-  }) {
+  addAttendee({ name, college }) {
     const { addAttendeeMap } = this.state;
-    axios.put(`${API}/maps/${addAttendeeMap._id}`,
-      {
-        ...addAttendeeMap,
-        attendees: [...addAttendeeMap.attendees, {
+    MapService.update(addAttendeeMap._id, {
+      ...addAttendeeMap,
+      attendees: [
+        ...addAttendeeMap.attendees,
+        {
           name,
           college: college._id,
-        }],
-      })
-      .then(() => this.getMaps());
+        },
+      ],
+    }).then(() => this.getMaps());
   }
 
   render() {
-    const {
-      colleges,
-      maps,
-      isDialogOpen,
-      addAttendeeMap,
-    } = this.state;
+    const { colleges, maps, isDialogOpen, addAttendeeMap } = this.state;
     return (
       <>
         <div>
-          <Button variant="outlined" color="primary" onClick={this.handleClickButton}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={this.handleClickButton}
+          >
             Add a Map
           </Button>
         </div>
@@ -96,8 +93,7 @@ class Maps extends React.Component {
             this.setState({ isDialogOpen: false });
           }}
         />
-        {addAttendeeMap
-        && (
+        {addAttendeeMap && (
           <AddAttendeeDialog
             colleges={colleges}
             handleClose={() => this.setState({ addAttendeeMap: null })}
