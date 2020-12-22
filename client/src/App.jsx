@@ -9,6 +9,7 @@ import { AppBar, Container, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import Colleges from "./pages/Colleges";
 import Maps from "./pages/Maps";
+import MapContainer from "./components/MapContainer";
 
 const useStyles = makeStyles(() => ({
   appBar: {
@@ -32,6 +33,7 @@ export default function App() {
             <Redirect to="/maps" />
           </Route>
           <Route path="/colleges" component={Colleges} />
+          <Route path="/maps/:mapId" component={MapContainer} />
           <Route path="/maps" component={Maps} />
         </Switch>
       </Container>
