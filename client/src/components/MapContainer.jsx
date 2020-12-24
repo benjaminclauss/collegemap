@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MapService from "../services/MapService";
+import Map from "./Map";
 
 export default function MapContainer() {
   const { mapId } = useParams();
@@ -16,6 +17,7 @@ export default function MapContainer() {
   return (
     <div>
       <h1>{map.name}</h1>
+      <Map map={map} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Grid,
   IconButton,
@@ -6,8 +6,14 @@ import {
   ListItem,
   ListItemSecondaryAction,
   ListItemText,
-} from '@material-ui/core';
-import { Add, Delete } from '@material-ui/icons';
+} from "@material-ui/core";
+import { Add, Delete } from "@material-ui/icons";
+import { Link } from "react-router-dom";
+
+function mapLink(id) {
+  const link = `maps/${id}`;
+  return <Link to={link}>{id}</Link>;
+}
 
 function MapList({ maps, onAdd, onDelete }) {
   return (
@@ -16,12 +22,20 @@ function MapList({ maps, onAdd, onDelete }) {
         <List dense>
           {maps.map((map) => (
             <ListItem key={map._id}>
-              <ListItemText primary={map.name} secondary={`${map.attendees.length}`} />
+              <ListItemText primary={map.name} secondary={mapLink(map._id)} />
               <ListItemSecondaryAction>
-                <IconButton onClick={() => onAdd(map)} edge="end" aria-label="delete">
+                <IconButton
+                  onClick={() => onAdd(map)}
+                  edge="end"
+                  aria-label="delete"
+                >
                   <Add />
                 </IconButton>
-                <IconButton onClick={() => onDelete(map)} edge="end" aria-label="delete">
+                <IconButton
+                  onClick={() => onDelete(map)}
+                  edge="end"
+                  aria-label="delete"
+                >
                   <Delete />
                 </IconButton>
               </ListItemSecondaryAction>

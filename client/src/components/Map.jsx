@@ -1,12 +1,10 @@
 import * as React from "react";
 import MapGL, { Marker, NavigationControl } from "react-map-gl";
-import MapService from "../services/MapService";
 
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maps: [],
       viewport: {
         width: "100%",
         height: 400,
@@ -18,23 +16,13 @@ export default class Map extends React.Component {
     this._updateViewport.bind(this);
   }
 
-  componentDidMount() {
-    this.getMaps();
-  }
-
-  getMaps() {
-    MapService.getAll().then((response) =>
-      this.setState({ maps: response.data })
-    );
-  }
-
   _updateViewport = (viewport) => {
     this.setState({ viewport });
   };
 
   render() {
-    const { maps, viewport } = this.state;
-    console.log(maps[0]);
+    const { viewport } = this.state;
+    const { map } = this.props;
     return (
       <div className="mapContainer">
         <MapGL
@@ -43,7 +31,7 @@ export default class Map extends React.Component {
           onViewportChange={this._updateViewport}
         >
           <NavigationControl />
-          {maps.length > 0 && <Pins data={maps[0].attendees} />}
+          <Pins data={map.attendees} />
         </MapGL>
       </div>
     );
@@ -61,10 +49,6 @@ function Pins(props) {
   const { data, onClick } = props;
 
   return data.map((attendee) => {
-    console.log("Am I even here?");
-    console.log(attendee);
-    console.log(attendee.college.latitude);
-    console.log(attendee.college.longitude);
     return (
       <Marker
         key={attendee.name}
