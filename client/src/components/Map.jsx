@@ -7,16 +7,16 @@ export default class Map extends React.Component {
     this.state = {
       viewport: {
         width: "100%",
-        height: 400,
+        height: "100%",
         latitude: 37.7577,
         longitude: -122.4376,
         zoom: 8,
       },
     };
-    this._updateViewport.bind(this);
+    this.onViewportChange.bind(this);
   }
 
-  _updateViewport = (viewport) => {
+  onViewportChange = (viewport) => {
     this.setState({ viewport });
   };
 
@@ -28,10 +28,10 @@ export default class Map extends React.Component {
         <MapGL
           {...viewport}
           mapStyle="mapbox://styles/mapbox/light-v10"
-          onViewportChange={this._updateViewport}
+          onViewportChange={this.onViewportChange}
         >
           <NavigationControl />
-          <Pins data={map.attendees} />
+          <Pins data={map.attendees} onClick={() => {}} />
         </MapGL>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   BrowserRouter as Router,
+  Link,
   Redirect,
   Route,
   Switch,
@@ -24,7 +25,11 @@ export default function App() {
     <Router>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="h6">College Map</Typography>
+          <Typography variant="h6">
+            <Link to="/">
+              <Typography variant="h6">College Map</Typography>
+            </Link>
+          </Typography>
         </Toolbar>
       </AppBar>
       <Container>
