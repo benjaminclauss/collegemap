@@ -1,6 +1,13 @@
 import * as React from "react";
 import MapGL, { Marker, NavigationControl } from "react-map-gl";
 
+const navStyle = {
+  position: "absolute",
+  top: 72,
+  left: 0,
+  padding: "10px",
+};
+
 export default class Map extends React.Component {
   constructor(props) {
     super(props);
@@ -30,7 +37,9 @@ export default class Map extends React.Component {
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={this.onViewportChange}
         >
-          <NavigationControl />
+          <div style={navStyle}>
+            <NavigationControl />
+          </div>
           <Pins data={map.attendees} onClick={() => {}} />
         </MapGL>
       </div>
