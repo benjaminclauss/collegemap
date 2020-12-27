@@ -1,5 +1,5 @@
 import * as React from "react";
-import MapGL, { Marker, NavigationControl } from "react-map-gl";
+import MapGL, { Marker, NavigationControl, Popup } from "react-map-gl";
 
 const navStyle = {
   position: "absolute",
@@ -19,6 +19,7 @@ export default class Map extends React.Component {
         longitude: -122.4376,
         zoom: 8,
       },
+      popupInfo: null,
     };
     this.onViewportChange.bind(this);
   }
@@ -26,6 +27,28 @@ export default class Map extends React.Component {
   onViewportChange = (viewport) => {
     this.setState({ viewport });
   };
+
+  _onClickMarker = (attendee) => {
+    this.setState({ popupInfo: attendee });
+  };
+
+  _renderPopup() {
+    const { popupInfo } = this.state;
+    return (
+      popupInfo && (
+        <Popup
+          tipSize={5}
+          anchor="top"
+          longitude={popupInfo.college.coordinates.longitude}
+          latitude={popupInfo.college.coordinates.latitude}
+          closeOnClick={false}
+          onClose={() => this.setState({ popupInfo: null })}
+        >
+          <CollegeInfo info={popupInfo} />
+        </Popup>
+      )
+    );
+  }
 
   render() {
     const { viewport } = this.state;
@@ -37,10 +60,13 @@ export default class Map extends React.Component {
           mapStyle="mapbox://styles/mapbox/light-v10"
           onViewportChange={this.onViewportChange}
         >
+          <Pins data={map.attendees} onClick={this._onClickMarker} />
+
+          {this._renderPopup()}
+
           <div style={navStyle}>
             <NavigationControl />
           </div>
-          <Pins data={map.attendees} onClick={() => {}} />
         </MapGL>
       </div>
     );
@@ -49,7 +75,7 @@ export default class Map extends React.Component {
 
 // Important for perf: the markers never change, avoid rerender when the map viewport changes
 function Pins(props) {
-  const { data } = props;
+  const { data, onClick } = props;
 
   return data.map((attendee) => {
     return (
@@ -58,7 +84,7 @@ function Pins(props) {
         longitude={attendee.college.coordinates.longitude}
         latitude={attendee.college.coordinates.latitude}
       >
-        <div>
+        <div onClick={() => onClick(attendee)}>
           <img
             alt="Spongebob"
             width="50px"
@@ -69,4 +95,8 @@ function Pins(props) {
       </Marker>
     );
   });
+}
+
+function CollegeInfo() {
+  return <div>CollegeInfo</div>;
 }
