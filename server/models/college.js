@@ -1,8 +1,12 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var CollegeSchema = new Schema({
-    name: String
+const CollegeSchema = new Schema({
+  name: String,
+  coordinates: {
+    latitude: Number,
+    longitude: Number,
+  },
 });
 
-module.exports = mongoose.model('College', CollegeSchema);
+module.exports = mongoose.model("College", CollegeSchema);
